@@ -7,11 +7,11 @@ from scipy import integrate
 
 lambda1= np.loadtxt('sun_AM0.dat', usecols = [0])
 flux1= np.loadtxt('sun_AM0.dat', usecols = [1])
-lambda2=lambda1*10#[A^-1]
+lambda2=lambda1*10#[A]
 flux2=flux1*100 #[ergs*s^-1*cm^-2*A^-1]
 
 semilogx(lambda2,flux2)
-xlabel('$Longitud\; de\; onda\; (\lambda) \;[\AA^{-1}]$')
+xlabel('$Longitud\; de\; onda\; (\lambda) \;[\AA$')
 ylabel('$Flujo\; [ergs\cdot s^{-1} \cdot cm^{-2} \cdot \AA^{-1}]$')
 title('Espectro solar')
 grid(True)
@@ -94,7 +94,7 @@ print "Radio="+str(radio)+" metros"
 #---------------------------Parte 4------------------------#
 
 t0=time.time()
-Lum2=4*np.pi*(au**2)*np.trapz(lambda2,x=flux2)
+Lum2=4*np.pi*(au**2)*np.trapz(flux1,x=lambda1)
 tf=time.time()
 print "Luminosidad2=" + str(Lum2)
 print "Tiempo calculando trapecio="+str(tf-t0)+" segundos"
