@@ -19,23 +19,23 @@ savefig("EspectroSolar.png")
 show()
 
 #---------------------------Parte 2-------------------#
-
+au=cons.au.value
 def intrap(x,y):
     s=0
     for i in range(len(x)-1):
         s=s+(x[i+1]-x[i])*y[i]
     return s
 
-Lum1=intrap(lambda2,flux2)
+Lum1=4*np.pi*(au**2)*intrap(lambda1,flux1)
 print "Luminosidad1=" + str(Lum1)
 
 
 #----------------------------parte 3---------------------#
 T=5777
-h=cons.h.cgs.value
-c=cons.c.cgs.value
-k=cons.k_B.cgs.value
-au=cons.au.value*100 # en centimetros
+h=cons.h.value
+c=cons.c.value
+k=cons.k_B.value
+
 
 def F1(x):
     f=(x**3)/(np.exp(x)-1)
@@ -53,6 +53,10 @@ def rango(a,b,step):
             a+=step
 
 def intmed(f,a,b):
+    '''
+    Calcula la integral de la funcion 'f' entre los
+    valores 'a y 'b usando el metodo del valor medio
+    '''
     m=(a+b)/2
     s=(b-a)*f(m)
     return s
@@ -60,6 +64,10 @@ def intmed(f,a,b):
 
 
 def simpson(f,a,b):
+    '''
+    Calcula la integral de la funcion 'f' entre los
+    valores 'a y 'b usando el metodo de Simpson
+    '''
     n=100000
     s=f(a)+f(b)
     h=(b-a)/n
@@ -81,11 +89,12 @@ print "Energia1="+str(E1)
 print "Tiempo calculando simpson="+str(tf-t0)+" segundos"
 print "Energia2="+str(E2)
 
-radio=au*np.sqrt(E1/(4*np.pi*Lum1))
-print "Radio="+str(radio)
+radio=np.sqrt(Lum1/(4*np.pi*E1))
+print "Radio="+str(radio)+" metros"
 #---------------------------Parte 4------------------------#
+
 t0=time.time()
-Lum2=np.trapz(lambda2,x=flux2)
+Lum2=4*np.pi*(au**2)*np.trapz(lambda2,x=flux2)
 tf=time.time()
 print "Luminosidad2=" + str(Lum2)
 print "Tiempo calculando trapecio="+str(tf-t0)+" segundos"
